@@ -1,36 +1,55 @@
 class Vector:
+	def __init__(self, capacity):
+		self.elements = [None] * capacity
+		self.capacity = capacity
+		self.size = 0
 
-    # Adds value at a specific index in the Vector.
-    # Complexity: O(n)
-    def insert(index, value):
-        pass
 
-    # Adds value to the end of the Vector.
-    # Complexity: O(1)
-    def add(value):
-        pass
+	def capacity(self):
+		return self.capacity
 
-    # Returns value at a specific index in the Vector
-    # Complexity: O(1)
-    def get(index):
-        pass
 
-    # Removes element at the specific index
-    # Complexity: O(n)
-    def remove(index):
-        pass
+	def size(self):
+		return self.size
 
-    # Removes element at the last index
-    # Complexity: O(1)
-    def pop():
-        pass
 
-    # Returns the number of elements in the Vector.
-    # Complexity: O(1)
-    def size():
-        pass
+	def insert(self, index, value):
+		#Adds value at a specific index in the Vector.
+		if (index == self.size):
+			self.add(value)
+		else:
+			
+			if (self.size == self.capacity):
+				self.expand()
+			r = range(self.size - 1, index - 1, -1)
+			for i in r:
+				self.elements[i + 1] = self.elements[i]
+			self.elements[index] = value
+			self.size += 1
 
-    # Returns the total capacity of the Vector.
-    # Complexity: O(1)
-    def capacity():
-        pass
+
+	def expand(self):
+		i = 0
+		elements = [None] * (self.capacity * 2)
+		for element in self.elements:
+			elements[i] = element
+			i += 1
+		self.elements = elements
+		self.capacity = self.capacity * 2
+
+
+	def add(self, value):
+		#Adds value at the end of the vector.
+		if (self.elements[self.capacity - 1]):
+			self.expand()
+		self.elements[self.size] = value
+		self.size += 1
+
+
+	def get(self, index):
+		#Returns value at a specific index in the Vector
+		if (index < self.size):
+			return self.elements[index]
+		else:
+			raise IndexError("Index out of range")
+
